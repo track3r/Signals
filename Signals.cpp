@@ -1,6 +1,5 @@
 //
 //  Signal.cpp
-//  BattleForThrone
 //
 //  Created by Alexandr Dem'yanenko on 8/28/13.
 //
@@ -18,7 +17,7 @@ SignalConnection::SignalConnection(SignalSharedDataPointer ptr, size_t id)
     :m_data(ptr)
     ,m_id(id)
 {
-    
+
 }
 
 void SignalConnection::Disconnect()
@@ -39,23 +38,23 @@ const SignalConnection& SignalConnection::operator=(SignalConnection&& other)
     Disconnect();
     m_data = other.m_data;
     other.m_data.reset();
-    
+
     m_id = other.m_id;
     other.m_id = 0;
-    
+
     return *this;
 }
 
 ScopedConnection::ScopedConnection(SignalConnection&& connection)
     :m_connection(std::move(connection))
 {
-    
+
 }
 
 ScopedConnection::ScopedConnection(ScopedConnection&& connection)
     :m_connection(std::move(connection.m_connection))
 {
-    
+
 }
 
 void ScopedConnection::Disconnect()
@@ -97,7 +96,7 @@ void BaseSignal::Gc()
     {
         _Disconnect(it);
     }
-    
+
     m_garbage.clear();
 }
 

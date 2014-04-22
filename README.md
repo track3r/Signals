@@ -2,6 +2,11 @@ Signals
 =======
 
 Basic, easy to use, cross platform,  signal class for C++11
+* no need to inherit anything
+* scoped signal connection - automatically unsubscribe when leaving scope (RAI)
+* lambdas and std::function as signal handlers
+* useful if you don't want to add boost to your project (mobile platforms, etc)
+
 ``` cpp
 void SignalExample()
 {

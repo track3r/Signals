@@ -1,13 +1,6 @@
-//
-//  Signal.h
-//  BattleForThrone
-//
-//  Created by Alexandr Dem'yanenko on 8/28/13.
-//
-//
 
-#ifndef __BattleForThrone__Signal__
-#define __BattleForThrone__Signal__
+#ifndef __Track33r__Signal__
+#define __Track33r__Signal__
 
 #include <vector>
 #include <functional>
@@ -31,7 +24,7 @@ public:
     SignalConnection(SignalSharedDataPointer ptr, size_t id);
     const SignalConnection& operator=(SignalConnection&& other);
     void Disconnect();
-    
+
 private:
     SignalSharedDataPointer m_data;
     size_t m_id = 0;
@@ -56,14 +49,14 @@ class BaseSignal
 public:
     virtual ~BaseSignal();
     void Disconnect(size_t id);
-    
+
 protected:
     BaseSignal();
     size_t GenId();
     SignalSharedDataPointer GetShared();
     void Gc();
     virtual void _Disconnect(size_t id) = 0;
-    
+
 private:
     size_t m_counter = 0;
     SignalSharedDataPointer m_shared;
@@ -79,19 +72,19 @@ public:
     {
         const auto id = GenId();
         m_list[id] = function;
-        
+
         return SignalConnection(GetShared(), id);
     }
     void _Disconnect(size_t id) override
     {
         m_list.erase(id);
     }
-    
+
     void operator()(Args... args)
     {
         Call(args...);
     }
-    
+
     void Call(Args... args)
     {
         Gc();
@@ -104,4 +97,4 @@ private:
     std::unordered_map<size_t, std::function<void(Args...)>> m_list;
 };
 
-#endif /* defined(__BattleForThrone__Signal__) */
+#endif
